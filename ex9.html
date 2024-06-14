@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animação CSS</title>
+    <style>
+        /* Estilo do botão */
+        #meuBotao {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #meuBotao:hover {
+            background-color: #0056b3;
+        }
+
+        /* Animação CSS */
+        @keyframes crescer {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* Elemento que será animado */
+        #elementoAnimado {
+            display: inline-block;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            animation: crescer 2s infinite; /* Inicia a animação */
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Animação CSS</h2>
+
+    <!-- Botão para controlar a animação -->
+    <button id="meuBotao" onclick="toggleAnimacao()">Toggle Animação</button>
+
+    <!-- Elemento que será animado -->
+    <div id="elementoAnimado">Elemento Animado</div>
+
+    <script>
+        var animacaoAtiva = true;
+
+        function toggleAnimacao() {
+            var elemento = document.getElementById("elementoAnimado");
+            if (animacaoAtiva) {
+                elemento.style.animation = "none"; // Remove a animação
+            } else {
+                elemento.style.animation = "crescer 2s infinite"; // Reinicia a animação
+            }
+            animacaoAtiva = !animacaoAtiva; // Inverte o estado da animação
+        }
+    </script>
+
+</body>
+</html>

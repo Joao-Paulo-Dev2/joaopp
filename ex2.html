@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Login</title>
+</head>
+<body>
+
+    <h2>Formulário de Login</h2>
+
+    <form id="formLogin">
+        <label for="username">Usuário:</label>
+        <input type="text" id="username" required><br><br>
+        <label for="password">Senha:</label>
+        <input type="password" id="password" required><br><br>
+        <button type="submit">Entrar</button>
+    </form>
+
+    <p id="mensagem"></p>
+
+    <script>
+        // Função para lidar com o envio do formulário
+        document.getElementById('formLogin').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+            
+            // Obter os valores do usuário e senha
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            // Verificar se o usuário e a senha estão corretos (apenas para fins de demonstração)
+            if (username === 'usuario' && password === 'senha') {
+                // Armazenar o estado de login no Local Storage
+                localStorage.setItem('loggedIn', true);
+                // Redirecionar para a página de sucesso (ou executar outra ação)
+                window.location.href = 'pagina_sucesso.html';
+            } else {
+                // Exibir mensagem de erro
+                document.getElementById('mensagem').textContent = 'Usuário ou senha incorretos. Tente novamente.';
+            }
+        });
+
+        // Verificar se o usuário já está logado ao carregar a página
+        window.onload = function() {
+            if (localStorage.getItem('loggedIn')) {
+                // Redirecionar para a página de sucesso (ou executar outra ação)
+                window.location.href = 'pagina_sucesso.html';
+            }
+        };
+    </script>
+
+</body>
+</html>

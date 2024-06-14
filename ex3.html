@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Interativo</title>
+    <style>
+        /* Estilo para o contêiner do mapa */
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Mapa Interativo</h2>
+
+    <!-- Div para conter o mapa -->
+    <div id="map"></div>
+
+    <script>
+        // Função para inicializar o mapa
+        function initMap() {
+            // Coordenadas iniciais do mapa (São Paulo)
+            var coordenadas = { lat: -23.5505, lng: -46.6333 };
+            // Criar um novo mapa
+            var mapa = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12, // Nível de zoom inicial
+                center: coordenadas // Centro do mapa inicial
+            });
+            // Adicionar um marcador no centro do mapa
+            var marcador = new google.maps.Marker({
+                position: coordenadas,
+                map: mapa,
+                title: 'São Paulo'
+            });
+        }
+    </script>
+
+    <!-- Incluir a biblioteca da API do Google Maps -->
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=SUA_CHAVE_DE_API&callback=initMap">
+    </script>
+
+</body>
+</html>
+

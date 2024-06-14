@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upload de Arquivos</title>
+<style>
+    #preview {
+        margin-top: 20px;
+    }
+    #preview img {
+        max-width: 200px;
+        max-height: 200px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+</style>
+</head>
+<body>
+
+<h2>Upload de Arquivos</h2>
+
+<form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" id="fileInput" name="fileInput" multiple>
+    <button type="submit">Enviar Arquivos</button>
+</form>
+
+<div id="preview"></div>
+
+<script>
+    document.getElementById('fileInput').addEventListener('change', function() {
+        var files = this.files;
+        var preview = document.getElementById('preview');
+
+        preview.innerHTML = '';
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                preview.appendChild(img);
+            }
+
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.getElementById('uploadForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        // Aqui você pode adicionar código para enviar os arquivos para o servidor
+        alert('Arquivos enviados com sucesso!');
+    });
+</script>
+
+</body>
+</html>

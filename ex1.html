@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+</head>
+<body>
+
+    <h2>Lista de Tarefas</h2>
+
+    <form id="formTarefa">
+        <input type="text" id="inputTarefa" placeholder="Digite uma nova tarefa...">
+        <button type="submit">Adicionar Tarefa</button>
+    </form>
+
+    <ul id="listaTarefas"></ul>
+
+    <script>
+        // Função para renderizar a lista de tarefas
+        function renderizarTarefas() {
+            var listaTarefas = JSON.parse(localStorage.getItem('tarefas')) || []; // Obtém a lista de tarefas do Local Storage
+
+            var listaTarefasElemento = document.getElementById('listaTarefas');
+            listaTarefasElemento.innerHTML = ''; // Limpa a lista de tarefas antes de renderizar
+
+            listaTarefas.forEach(function(tarefa, indice) {
+                var li = document.createElement('li');
+                li.textContent = tarefa.texto;
+
+                // Adiciona um botão para marcar/desmarcar a tarefa como concluída
+                var btnConcluir = document.createElement('button');
+                btnConcluir.textContent = tarefa.concluida ? 'Desconcluir' : 'Concluir';
+                btnConcluir.addEventListener('click', function(event) {
+                    event.stopPropagation(); // Impede que o evento de clique seja propagado para o elemento li
+                    tarefa.concluida = !tarefa.concluida;
+                    salvarTarefas();
+                    renderizarTarefas();
+                });
+                li.appendChild(btnConcluir);
+
+                // Adiciona um botão para excluir a tarefa
+                var btnExcluir = document.createElement('button');
+                btnExcluir.textContent = 'Excluir';
+                btnExcluir.addEventListener('click', function(event) {
+                    event.stopPropagation(); // Impede que o evento de clique seja propagado para o elemento li
+                    listaTarefas.splice(indice, 1);
+                    salvarTarefas();
+                    renderizarTarefas();
+                });
+                li.appendChild(btnExcluir);
+
+                // Adiciona a tarefa à lista
+                listaTarefasElemento.appendChild(li);
+            });
+        }
+
+        // Função para adicionar uma nova tarefa
+        document.getElementById('formTarefa').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var textoTarefa = document.getElementById('inputTarefa').value.trim();
+
+            if (textoTarefa !== '') {
+                var novaTarefa = {
+                    texto: textoTarefa,
+                    concluida: false
+                };
+
+                var listaTarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
+                listaTarefas.push(novaTarefa);
+                localStorage.setItem('tarefas', JSON.stringify(listaTarefas));
+
+                document.getElementById('inputTarefa').value = ''; // Limpa o campo de texto
+                renderizarTarefas();
+            }
+        });
+
+        // Função para salvar a lista de tarefas no Local Storage
+        function salvarTarefas() {
+            var listaTarefas = document.querySelectorAll('#listaTarefas li');
+            var tarefas = [];
+
+            listaTarefas.forEach(function(tarefa) {
+                tarefas.push({
+                    texto: tarefa.textContent,
+                    concluida: tarefa.classList.contains('concluida')
+                });
+            });
+
+            localStorage.setItem('tarefas', JSON.stringify(tarefas));
+        }
+
+        // Renderiza as tarefas ao carregar a página
+        renderizarTarefas();
+    </script>
+
+    <style>
+        /* Estilo para tarefas concluídas */
+        .concluida {
+            text-decoration: line-through;
+        }
+        /* Estilo para os botões */
+        button {
+            margin-left: 5px;
+            cursor: pointer;
+        }
+    </style>
+
+</body>
+</html>
+
+
+
+

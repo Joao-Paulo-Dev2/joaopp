@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrossel de Imagens</title>
+    <style>
+        /* Estilos do carrossel */
+        .slideshow-container {
+            position: relative;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .mySlides {
+            display: none;
+        }
+
+        /* Estilos dos botões de navegação */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Carrossel de Imagens</h2>
+
+    <!-- Carrossel de imagens -->
+    <div class="slideshow-container">
+        <div class="mySlides">
+            <img src="https://static.wikia.nocookie.net/dublagem/images/4/49/Bleach_-_Thousand-Year_Blood_War.png/revision/latest?cb=20220924121900&path-prefix=pt-br" style="width:100%">
+        </div>
+        <div class="mySlides">
+            <img src="https://m.media-amazon.com/images/I/91lQppUeqGL._AC_UF894,1000_QL80_.jpg" style="width:100%">
+        </div>
+        <div class="mySlides">
+            <img src="https://tm.ibxk.com.br/2023/08/11/11115057865090.jpg" style="width:100%">
+        </div>
+
+        <!-- Botões de navegação -->
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+
+    <script>
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex-1].style.display = "block";
+        }
+
+        // Automatização do carrossel
+        var intervalo = setInterval(function() {
+            plusSlides(1);
+        }, 3000);
+    </script>
+
+</body>
+</html>
